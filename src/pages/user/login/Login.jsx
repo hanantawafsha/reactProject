@@ -7,11 +7,14 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+
+//import useFetch from "../../hooks/useFetch";  // import custom hook useFetch
 import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 import { toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useFetch from "../../../customHook/useFetch"; 
 export default function Login() {
   const {
     register,
@@ -19,16 +22,19 @@ export default function Login() {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [serverError, setserverError] = useState("");
-
+ const [isLoading, setIsLoading] = useState(false);
+ const [serverError, setserverError] = useState("");
+    
   const loginUser = async (value) => {
-    setIsLoading(true);
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BURL}/auth/signin`,
-        value
-      );
+      // use UseFetch to post login 
+  const url = `${import.meta.env.VITE_BURL}/auth/signin`;
+       const {response, error, isLoading} =  useFetch(url);  // use UseFetch to post login
+      setserverError(error);
+      setIsLoading(isLoading);
+      // const response = await axios.post(
+      //   `${import.meta.env.VITE_BURL}/auth/signin`,
+      //   value
+      // );
 
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
@@ -45,22 +51,7 @@ export default function Login() {
         });
         navigate("/");
       }
-    } catch (error) {
-      //console.error(error);
-      setserverError(error.response.data.message);
-      toast.error(error.response.data.message, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "light",
-        transition: Bounce,
-      });
-    } finally {
-      setIsLoading(false);
-    }
+   
   };
 
   // to create a registration form with validation and submission to the server
@@ -68,7 +59,7 @@ export default function Login() {
     <>
       <Container className="mt-5">
         <h1 className="mb-4 ">Account</h1>
-        <Row className="d-flex justify-content-between">
+        <Row className="d-flex justify-content-between ">
           <Col md={6} className="signBparder">
             <h2>New Customer</h2>
             <p className="text-bold">Register Account</p>
