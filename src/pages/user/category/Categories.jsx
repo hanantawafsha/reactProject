@@ -49,7 +49,6 @@ export default function Categories() {
                     src={category.image.secure_url}
                     alt={category.name}
                     className="img-fluid mb-3"
-                    style={{ maxHeight: "200px", objectFit: "contain" }}
                   />
                   {/* Center the button */}
                   <Button as={Link} to={`/products/${category._id}`} variant="secondary">
