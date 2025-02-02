@@ -10,12 +10,14 @@ export default function CustomNavbar() {
     <>
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="/">eCommerce Website React</Navbar.Brand>
+        <Navbar.Brand href="/">User eCommerce Website React</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             <Nav.Link as={Link} to={'/account/login'}>Login</Nav.Link>
             <Nav.Link as={Link} to={'/account/register'}>Rigester</Nav.Link>
+            <Nav.Link as={Link} to={'/account/cart'}>Cart</Nav.Link>
+
             
           </Nav>
         </Navbar.Collapse>

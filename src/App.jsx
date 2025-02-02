@@ -15,6 +15,7 @@ import Categories from './pages/user/category/Categories'
 import Products from './pages/user/product/Products'
 import CategoryProducts from './pages/user/category/CategoryProducts'
 import ProductDetails from './pages/user/product/ProductDetails'
+import Cart from './pages/user/cart/Cart'
 
 
 function App() {
@@ -24,6 +25,9 @@ const router = createBrowserRouter([
     children: [
       { path: 'register', element: <Register/> },
       { path: 'login', element: <Login/> },
+      { path: 'cart', element: <Cart/> },
+
+
     ],
 
   },

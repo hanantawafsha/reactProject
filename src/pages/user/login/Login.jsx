@@ -28,13 +28,10 @@ export default function Login() {
   const loginUser = async (value) => {
       // use UseFetch to post login 
   const url = `${import.meta.env.VITE_BURL}/auth/signin`;
-       const {response, error, isLoading} =  useFetch(url);  // use UseFetch to post login
-      setserverError(error);
-      setIsLoading(isLoading);
-      // const response = await axios.post(
-      //   `${import.meta.env.VITE_BURL}/auth/signin`,
-      //   value
-      // );
+    //   const {response, error, isLoading} =  useFetch(url);  // use UseFetch to post login
+    try {
+      const response = await axios.post(url, value);
+      setIsLoading(false);
 
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
@@ -51,7 +48,14 @@ export default function Login() {
         });
         navigate("/");
       }
-   
+    } catch (error) {
+      setserverError(error.message);
+    }
+    finally{
+      setIsLoading(false);
+    }
+
+     
   };
 
   // to create a registration form with validation and submission to the server
@@ -68,7 +72,7 @@ export default function Login() {
               date on an order's status, and keep track of the orders you have
               previously made.
             </p>
-            <Link to="/register" className="text-decoration-none">
+            <Link to="/account/register" className="text-decoration-none">
               <Button variant="secondary" size="md">
                 Create an account
               </Button>
