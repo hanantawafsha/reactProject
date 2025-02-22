@@ -73,8 +73,6 @@ export default function Category() {
                     <SwiperSlide key={category._id}>
                         <div className="category">
                             <Link to={`/products/${category._id}`}>
-
-                           
                             <Image 
                                 src={category.image.secure_url} 
                                 alt={category.name} 
