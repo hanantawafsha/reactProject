@@ -11,8 +11,9 @@ export default function Categories() {
 
   const getCategories = async () => {
     try {
+      //https://ecommerce-node4.onrender.com/categories/active?page=1&limit=10
       const { data } = await axios.get(
-        `${import.meta.env.VITE_BURL}/categories/active`
+        `${import.meta.env.VITE_BURL}/categories/active?page=1&limit=10`
       );
       setCategories(data.categories);
     } catch (err) {
@@ -63,3 +64,5 @@ export default function Categories() {
     </Container>
   );
 }
+
+

@@ -6,21 +6,23 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 
 
 export default function Products() {
+  console.log("Hello From Product");
     const [isLoading, setIsLoading] = useState(true);
     const [products, setProducts] = useState([{}]);
 
-    const getProducts = async () => {
+      const getProducts = async () => {
         try {
-            const {data} = await axios.get(`${import.meta.env.VITE_BURL}/products`);
-           // console.log(response.data);
+            const { data } = await axios.get(`${import.meta.env.VITE_BURL}/products?limit=50`);
+            console.log("API Response: ", data);  // Log the entire API response
             setProducts(data.products);
         } catch (error) {
             console.error(error);
-        }
-        finally {
+        } finally {
             setIsLoading(false);
         }
-    }
+    };
+    
+    
     useEffect(() => {
         getProducts();
     }, []);
@@ -28,6 +30,9 @@ export default function Products() {
     if (isLoading) {
         return <Loader/>
     }
+
+
+
   return (
 <Container className="my-4">
       <h2 className="mb-4 text-center">All Products</h2>

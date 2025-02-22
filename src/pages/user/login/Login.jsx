@@ -15,6 +15,8 @@ import { useNavigate } from "react-router-dom";
 import { toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useFetch from "../../../customHook/useFetch"; 
+import { UserContext } from "../../../components/user/context/UserContext";
+import { useContext } from "react";
 export default function Login() {
   const {
     register,
@@ -24,6 +26,7 @@ export default function Login() {
   const navigate = useNavigate();
  const [isLoading, setIsLoading] = useState(false);
  const [serverError, setserverError] = useState("");
+ const {user,setUser} = useContext(UserContext);
     
   const loginUser = async (value) => {
       // use UseFetch to post login 
@@ -46,6 +49,8 @@ export default function Login() {
           theme: "light",
           transition: Bounce,
         });
+        setUser(response.data);
+        //console.log("User Signed successfully", response.data);
         navigate("/");
       }
     } catch (error) {
@@ -110,6 +115,11 @@ export default function Login() {
                   <div className="text-danger">{errors.password.message}</div>
                 ) : null}
               </FloatingLabel>
+              <p className="text-center mt-3">
+              <Link to="/account/sendcode" className="text-decoration-none">
+                Forgot Password?
+              </Link>
+            </p>
               <Button
                 type="submit"
                 className="my-3"
@@ -120,6 +130,7 @@ export default function Login() {
                 {isLoading ? "Loading..." : "Login"}
               </Button>
             </Form>
+            
           </Col>
         </Row>
       </Container>

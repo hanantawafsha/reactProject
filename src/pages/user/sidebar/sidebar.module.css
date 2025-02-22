@@ -1,0 +1,20 @@
+/* Main sidebar container */
+.sidebar {
+    background-color: #b6b9bd; 
+    color: rgb(0, 0, 0);
+    height: 100vh; /* Full height */
+    position: fixed; /* Fixed position */
+    top: 0;
+    left: 0;
+    transition: width 0.3s ease; /* Smooth transition for width when collapsing */
+  }
+  .flex-space{
+    display: flex;
+    justify-content: space-evenly ;
+    align-items: center;
+
+  }
+  
+ 
+  
+  

@@ -7,7 +7,7 @@ export default function AuthLayout() {
   return (
     <>
     <UserNavbar/>
-    <CustomNavbar/>  {/* Add your custom Navbar here */}
+
     <Outlet/>   
     </>
   )

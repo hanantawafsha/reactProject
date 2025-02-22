@@ -8,6 +8,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {Link} from "react-router-dom";
 
 export default function Register() {
   const {
@@ -43,7 +44,7 @@ export default function Register() {
             transition: Bounce,
           }
         );
-        navigate("/login");
+        navigate("/account/login");
       } 
     } catch (error) {
       //console.error(error);
@@ -130,6 +131,9 @@ export default function Register() {
 
             <Button variant="secondary" type="submit">
             {isLoading ? "Creating ..." : "Create Account"}
+            </Button>
+            <Button variant="secondary" as={Link} to='/account/login' className="mx-2">
+             Already has Account
             </Button>
           </Form>
     </Container>

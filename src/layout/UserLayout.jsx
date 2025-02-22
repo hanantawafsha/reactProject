@@ -8,6 +8,7 @@ export default function UserLayout() {
     <>
         <CustomNavbar/>
         <UserNavbar/>
+
         <Outlet/>
 
     </>
