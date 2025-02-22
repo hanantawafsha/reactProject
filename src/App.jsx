@@ -22,13 +22,13 @@ import Profile from "./pages/user/profile/Profile";
 import Info from "./pages/user/profile/Info";
 import Orders from "./pages/user/profile/Orders";
 import UserContextProvider from "./components/user/context/UserContext";
-import Home from "./pages/Home/home";
 import AuthProtectedRoute from "./components/user/protectedroute/AuthProtectedRoute";
 import Logout from "./pages/user/logout/Logout";
 import UserImage from "./pages/user/profile/Image";
 import PlaceOrder from "./pages/user/cart/PlaceOrder";
 import SendCode from "./pages/user/forgetPassword/SendCode";
 import ForgetPassword from "./pages/user/forgetPassword/ForgetPassword";
+import Home from "./pages/Home/home";
 
 
 function App() {
@@ -103,7 +103,7 @@ function App() {
         </ProtectedRoute>
       ),
       children: [
-        { path: "/", element: <Home /> }, // Home page route
+        { path: "/", element: <Home/> }, // Home page route
         { path: "categories", element: <Categories /> },
         { path: "products", element: <Products /> },
 
