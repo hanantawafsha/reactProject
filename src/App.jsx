@@ -28,7 +28,7 @@ import UserImage from "./pages/user/profile/Image";
 import PlaceOrder from "./pages/user/cart/PlaceOrder";
 import SendCode from "./pages/user/forgetPassword/SendCode";
 import ForgetPassword from "./pages/user/forgetPassword/ForgetPassword";
-import Home from "./pages/Home/home";
+import Home from "./pages/home/Home";
 
 
 function App() {
