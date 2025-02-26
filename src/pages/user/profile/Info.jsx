@@ -12,6 +12,11 @@ export default function Info() {
   return (
 <>
 <Container className="mt-4">
+   <Row className="justify-content-center">
+     <Col md={6}>
+       <h2>Welcome, {user.userName}</h2>
+     </Col>
+   </Row>
       <Row className="justify-content-center">
         <Col md={6}>
           <Card className="shadow-lg p-3 text-center">

@@ -16,13 +16,11 @@ export default function Profile() {
       <CustomSidebar />
     </Col>
     <Col md={8}>
-      <h1>Profile</h1>
       <Outlet />
     </Col>
   </Row>
  
 </Container>
-<Outlet/>
 
 
 </>  
