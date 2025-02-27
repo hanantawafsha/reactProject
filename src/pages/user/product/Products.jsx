@@ -25,6 +25,7 @@ export default function Products() {
     setIsLoading(true);
     try {
       const queryParams = new URLSearchParams(location.search);
+      //console.log(queryParams);
       const searchValue = queryParams.get("search") || "";
       const sortValue = queryParams.get("sort") || "";
       const priceValue = queryParams.get("price") || "";
@@ -44,7 +45,7 @@ export default function Products() {
         if (maxPrice) priceFilter += `&price[lte]=${maxPrice}`;
       }
 
-      // API Request including 'page' parameter
+      // API Request including 'URL' parameters
       const { data } = await axios.get(
         `${import.meta.env.VITE_BURL}/products?page=${pageValue}&limit=${limitValue}&search=${searchValue}&sort=${sortValue}${priceFilter}`
       );
@@ -64,7 +65,7 @@ export default function Products() {
     const queryParams = new URLSearchParams(location.search);
 
     if (search) queryParams.set("search", search);
-    else queryParams.delete("search");
+    else queryParams.delete("search");// to clear it frim the url when selecting default values
 
     if (sort) queryParams.set("sort", sort);
     else queryParams.delete("sort"); // to clear it frim the url when selecting default values

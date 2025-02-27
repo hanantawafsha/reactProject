@@ -24,39 +24,81 @@ const Address = () => {
     const { name, value } = e.target;
     setPlaceOrder({ ...placeOrder , [name]: value });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission, e.g., save to database or send to an API
-    try{
-//https://ecommerce-node4.onrender.com/order
-      const response = await axios.post(url, placeOrder, {headers});
-      console.log("response is", response);
-      toast.success(
-        "Order Submitted Successfully.",
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
+  
+    if (placeOrder.coupon) {
+      try {
+        const couponUrl = `${import.meta.env.VITE_BURL}/coupon`;
+        const response = await axios.get(couponUrl, { headers });
+  
+        if (response.data.message !== "success" || !response.data.coupons) {
+          toast.error("Error fetching coupons. Try again later.");
+          return;
         }
-      );
+  
+        const validCoupons = response.data.coupons;
+        const enteredCoupon = validCoupons.find(c => c.name === placeOrder.coupon);
+        console.log("valid coupons are", validCoupons);
+  
+        if (!enteredCoupon) {
+          toast.error("Invalid coupon code!", { transition: Bounce });
+          return; // Stop order submission
+        }
+  
+        // Check if the coupon is expired
+        const currentDate = new Date();
+        const expireDate = new Date(enteredCoupon.expireDate);
+        console.log("expire date is",expireDate);
+        if (currentDate > expireDate) {
+          toast.error("This coupon has expired!", { transition: Bounce });
+          return;
+        }
+  
+        // Check if the coupon has already been used by the current user
+        const userId = localStorage.getItem("userID"); // Ensure user ID is stored in localStorage
+        if (userId && enteredCoupon.usedBy.includes(userId)) {
+          toast.error("You have already used this coupon!", { transition: Bounce });
+          return;
+        }
+  
+        toast.success("Coupon applied successfully!", { transition: Bounce });
+  
+      } catch (error) {
+        console.error("Error validating coupon:", error);
+        toast.error("Error checking coupon. Try again later.");
+        return;
+      }
+    }
+  
+    // Proceed with order submission if the coupon is valid or not entered
+    try {
+      const response = await axios.post(url, placeOrder, { headers });
+      console.log("response is", response);
+  
+      toast.success("Order Submitted Successfully.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+  
       setCartCount(0);
       navigate("/account/profile/orders");
-      
-
-    }
-    catch(error){
+  
+    } catch (error) {
       console.error("Error submitting order: ", error);
+      toast.error("Failed to submit order. Please try again.");
     }
-
-    console.log("order submitted: ", placeOrder );
+  
+    console.log("order submitted: ", placeOrder);
   };
+  
 
   return (
     <Container className="mt-5">

@@ -180,7 +180,7 @@ export default function Cart() {
         Remove Cart
       </Button>
 
-      {/* Address Form */}
+      {/* Place Order Form */}
       <Address />
     </Container>
   );

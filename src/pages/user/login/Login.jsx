@@ -51,6 +51,7 @@ export default function Login() {
         });
         setUser(response.data);
         //console.log("User Signed successfully", response.data);
+        getUserProfile();
         navigate("/");
       }
     } catch (error) {
@@ -62,6 +63,28 @@ export default function Login() {
 
      
   };
+  // get profile info from the user
+  const getUserProfile = async () => {
+    if (localStorage.getItem("token")) {
+      //https://ecommerce-node4.onrender.com/user/profile
+      const url = `${import.meta.env.VITE_BURL}/user/profile`;
+      try {
+        const response = await axios.get(url, {
+          headers: { Authorization: `Tariq__${localStorage.getItem("token")}` },
+        });
+
+        console.log("User Profile", response.data);
+if(response.data.message==="success")
+{
+  localStorage.setItem("userID", response.data.user._id);
+
+}
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+ 
 
   // to create a registration form with validation and submission to the server
   return (

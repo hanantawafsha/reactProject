@@ -17,9 +17,9 @@ export default function CustomNavbar() {
   //CartContext
   const navigate = useNavigate();
   const {cartCount} = useContext(CartContext);
-  const {user,loading} = useContext(UserContext);
+  const {user,loading,setUser} = useContext(UserContext);
   console.log(user);
- // setUser(user);
+ //setUser(user);
   const logout = () => {
     localStorage.removeItem('token');
     setUser(null);
